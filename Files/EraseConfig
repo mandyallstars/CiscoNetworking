@@ -1,0 +1,9 @@
+erase startup-config -- erase the startup config
+reload - confirm yes -- erase the running config
+* say no to question 'do you wan't to save the changes'
+
+would you like to enter initial config dialog?
+* answer 'no' always
+
+would you like to terminate autoinstall?
+* answer 'yes'
