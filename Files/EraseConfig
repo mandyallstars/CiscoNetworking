@@ -7,3 +7,21 @@ would you like to enter initial config dialog?
 
 would you like to terminate autoinstall?
 * answer 'yes'
+
+
+hostname R3
+ip domain-name example.com
+username mandeep secret password
+enable secret password1
+crypto key generate rsa
+1024/other power of 2
+ip ssh version 2
+
+
+** use following command to encrypt configured passwords:
+service password-encryption
+
+Saving config:
+copy running-config startup-config
+
+show run -- copy the result to notepad
