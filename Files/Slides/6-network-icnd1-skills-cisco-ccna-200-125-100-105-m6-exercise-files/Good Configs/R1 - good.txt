@@ -1,0 +1,105 @@
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$fQ32$HiHa06yrjL3jNBlPWpXwg/
+!
+no aaa new-model
+dot11 syslog
+ip cef
+!
+!
+!
+!
+ip domain name pluralsight.com
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+username ross secret 5 $1$GzJ.$//Uj.Dye66WorBcpNvYn9/
+archive
+ log config
+  hidekeys
+!
+!
+!
+!
+ip ssh version 2
+!
+!
+!
+interface Loopback0
+ ip address 10.0.99.1 255.255.255.255
+!
+interface FastEthernet0/0
+ ip address 10.0.0.9 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ ip address dhcp
+ ip nat outside
+ ip virtual-reassembly
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ ip address 10.0.0.1 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly
+ no fair-queue
+!
+interface Serial0/1/0
+ no ip address
+ shutdown
+!
+router ospf 10
+ log-adjacency-changes
+ network 10.0.0.0 0.0.0.3 area 0
+ network 10.0.0.8 0.0.0.3 area 0
+ network 10.0.99.1 0.0.0.0 area 0
+ default-information originate
+!
+ip forward-protocol nd
+ip route 0.0.0.0 0.0.0.0 203.0.113.89
+!
+!
+ip http server
+no ip http secure-server
+ip nat inside source static tcp 10.0.80.80 80 interface FastEthernet0/1 80
+ip nat inside source list 1 interface FastEthernet0/1 overload
+!
+access-list 1 permit 10.0.0.0 0.255.255.255
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ password 7 0822455D0A16
+ logging synchronous
+ login
+line aux 0
+ password 7 0822455D0A16
+ login
+line vty 0 4
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+en

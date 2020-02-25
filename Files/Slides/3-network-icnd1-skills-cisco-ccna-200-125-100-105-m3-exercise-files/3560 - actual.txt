@@ -1,0 +1,156 @@
+hostname s3560
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$fQ32$HiHa06yrjL3jNBlPWpXwg/
+!
+username ross secret 5 $1$GzJ.$//Uj.Dye66WorBcpNvYn9/
+no aaa new-model
+system mtu routing 1500
+ip routing
+ip domain-name pluralsight.com
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.0.99.4 255.255.255.255
+!
+interface FastEthernet0/1
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,15
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface FastEthernet0/2
+ no switchport
+ ip address 10.0.0.10 255.255.255.252
+!
+interface FastEthernet0/3
+ no switchport
+ ip address 10.0.0.13 255.255.255.252
+!
+interface FastEthernet0/4
+ shutdown
+!
+interface FastEthernet0/5
+ shutdown
+!
+interface FastEthernet0/6
+ shutdown
+!
+interface FastEthernet0/7
+ shutdown
+!
+interface FastEthernet0/8
+ shutdown
+!
+interface FastEthernet0/9
+ shutdown
+!
+interface FastEthernet0/10
+ shutdown
+!
+interface FastEthernet0/11
+ shutdown
+!
+interface FastEthernet0/12
+ shutdown
+!
+interface FastEthernet0/13
+ shutdown
+!
+interface FastEthernet0/14
+ shutdown
+!
+interface FastEthernet0/15
+ shutdown
+!
+interface FastEthernet0/16
+ shutdown
+!
+interface FastEthernet0/17
+ shutdown
+!
+interface FastEthernet0/18
+ shutdown
+!
+interface FastEthernet0/19
+ shutdown
+!
+interface FastEthernet0/20
+ shutdown
+!
+interface FastEthernet0/21
+ shutdown
+!
+interface FastEthernet0/22
+ shutdown
+!
+interface FastEthernet0/23
+ shutdown
+!
+interface FastEthernet0/24
+ shutdown
+!
+interface GigabitEthernet0/1
+ shutdown
+!
+interface GigabitEthernet0/2
+ shutdown
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan10
+ ip address 10.0.10.1 255.255.255.0
+!
+interface Vlan15
+ ip address 10.0.15.1 255.255.255.0
+!
+router ospf 10
+ network 10.0.0.8 0.0.0.3 area 0
+ network 10.0.0.12 0.0.0.3 area 0
+ network 10.0.10.0 0.0.0.255 area 0
+ network 10.0.15.0 0.0.0.255 area 0
+ network 10.0.99.4 0.0.0.0 area 0
+!
+ip http server
+ip http secure-server
+!
+!
+!
+logging esm config
+!
+!
+!
+line con 0
+ password 7 0822455D0A16
+ logging synchronous
+ login
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login
+!
+end

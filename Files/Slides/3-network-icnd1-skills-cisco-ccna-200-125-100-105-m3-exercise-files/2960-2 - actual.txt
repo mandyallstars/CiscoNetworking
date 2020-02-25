@@ -1,0 +1,21 @@
+hostname s2960-2
+
+enable secret 5 $1$fQ32$HiHa06yrjL3jNBlPWpXwg/
+!
+username ross secret 5 $1$GzJ.$//Uj.Dye66WorBcpNvYn9/
+
+ip domain-name pluralsight.com
+
+crypto key generate rsa
+1024
+
+ip ssh version 2
+
+
+line con 0
+ password 7 0822455D0A16
+ logging synchronous
+ login
+line vty 0 4
+ login local
+ transport input ssh
